@@ -1,8 +1,11 @@
 import React from 'react'
+import Wildlife from './Topics/Wildlife'
 
 const Body = () => {
     return (
-        <div>This is Body</div>
+        <div>
+            Body
+        </div>
     )
 }
 

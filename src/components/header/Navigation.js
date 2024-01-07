@@ -1,5 +1,6 @@
 import React from 'react'
-import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap'
+import { Navbar, NavbarBrand, Nav, NavItem, NavLink, DropdownItem, DropdownToggle, UncontrolledDropdown, DropdownMenu } from 'reactstrap'
+import { Route } from "react-router-dom"
 import Logo from './../../Logo.png'
 import './Header.css'
 
@@ -9,17 +10,45 @@ const Navigation = () => {
         <div className="Navigation">
             <Navbar style={{
                 backgroundColor: "#f2717c",
-                height: "120px",
+                height: "60px",
             }}>
-                <NavbarBrand href="/" className="mr-auto ml-md-5 Brand">
-                    <img src={Logo} alt="Logo" width="80px" />
+                <NavbarBrand href='/' className='mr-auto ml-md-5 Brand'>
+                    Photo Blog
                 </NavbarBrand>
+
                 <Nav className="mr-md-5">
                     <NavItem>
-                        <NavLink href="#" className="NavLink">Home</NavLink>
+                        <NavLink href="/" className="NavLink">Home</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="#" className="NavLink">Topics</NavLink>
+                        <UncontrolledDropdown nav inNavbar>
+                            <DropdownToggle nav caret>
+                                Topics
+                            </DropdownToggle>
+                            <DropdownMenu end>
+                                <DropdownItem >
+                                    <NavLink to='/wildlife'>
+                                        Wildlife
+                                    </NavLink>
+
+                                </DropdownItem>
+                                <DropdownItem>
+                                    <NavLink href='/automobile'>
+                                        Automobile
+                                    </NavLink>
+                                </DropdownItem>
+                                <DropdownItem>
+                                    <NavLink href='/art'>
+                                        Art
+                                    </NavLink>
+                                </DropdownItem>
+                                <DropdownItem>
+                                    <NavLink href='/tech'>
+                                        Technology
+                                    </NavLink>
+                                </DropdownItem>
+                            </DropdownMenu>
+                        </UncontrolledDropdown>
                     </NavItem>
                     <NavItem>
                         <NavLink href="#" className="NavLink">About</NavLink>
@@ -29,7 +58,7 @@ const Navigation = () => {
                     </NavItem>
                 </Nav>
             </Navbar>
-        </div>
+        </div >
     )
 }
 

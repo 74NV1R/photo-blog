@@ -1,22 +1,27 @@
 .Navigation {
     margin-bottom: 20px;
     padding-top: -20px;
+    font-weight: 600;
+    color: white;
     text-align: center;
 }
 
 .Brand {
     color: white;
-    font-size: 15px;
-    margin: 10px;
+    font-size: 20px;
+}
+
+.nav {
+    align-items: center;
 }
 
 .NavLink {
     text-decoration: none;
     color: white;
     font-size: 40px;
-    margin-top: -25px;
+    margin-top: 5px;
 }
 
 .NavLink:hover {
-    color: black;
+    color: white;
 }
