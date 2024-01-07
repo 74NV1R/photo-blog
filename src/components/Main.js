@@ -5,6 +5,7 @@ import Tech from './body/Topics/Tech'
 import Art from './body/Topics/Art'
 import Automobile from './body/Topics/Automobile'
 import Header from './header/Header'
+import Body from './body/Body'
 
 const Main = () => {
     return (
@@ -19,6 +20,8 @@ const Main = () => {
                     <Route path="/" element={<Navigate to="/" />} />
                 </Routes>
             </div>
+            <Body />
+
 
         </div>
     )
