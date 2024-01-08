@@ -6,12 +6,22 @@ import PostDetail from './PostDetail'
 
 const Feed = () => {
     const [images] = useState(imgArray)
+    const [selectedPost, setSelectedPost] = useState(null)
 
     //console.log(images)
 
+    const onSelect = (image) => {
+        setSelectedPost(image)
+        console.log(image)
+    }
+
     const feed = images.map((image) => {
-        return (<ImagePost image={image} key={image.id} />)
+        return (<ImagePost image={image} onSelect={onSelect} key={image.id} />)
     })
+
+
+
+    const postDetail = selectedPost ? <PostDetail post={selectedPost} /> : null
 
     return (
 
@@ -21,7 +31,7 @@ const Feed = () => {
                     {feed}
                 </div>
                 <div className='col-7'>
-                    <PostDetail />
+                    {postDetail}
                 </div>
 
             </div>

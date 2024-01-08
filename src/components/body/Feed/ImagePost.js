@@ -2,10 +2,10 @@ import React from 'react'
 import { Card, CardBody, CardTitle, CardText, CardLink } from 'reactstrap'
 import './../../../App.css'
 
-const ImagePost = ({ image }) => {
+const ImagePost = ({ image, onSelect }) => {
     return (
         <div>
-            <Card className='Card'
+            <Card onClick={() => onSelect(image)} className='Card'
                 style={{
                     width: '18rem'
                 }}
