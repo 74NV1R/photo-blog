@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Wildlife from './body/Topics/Wildlife'
 import Tech from './body/Topics/Tech'
