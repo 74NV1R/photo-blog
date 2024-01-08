@@ -1,10 +1,11 @@
 import React from 'react'
 import { Card, CardBody, CardTitle, CardText, CardLink } from 'reactstrap'
+import './../../../App.css'
 
 const ImagePost = ({ image }) => {
     return (
         <div>
-            <Card
+            <Card className='Card'
                 style={{
                     width: '18rem'
                 }}
@@ -24,12 +25,7 @@ const ImagePost = ({ image }) => {
                     <CardText>
                         {image.caption}
                     </CardText>
-                    <CardLink href="#">
-                        Card Link
-                    </CardLink>
-                    <CardLink href="#">
-                        Another Link
-                    </CardLink>
+
                 </CardBody>
             </Card>
             <br />

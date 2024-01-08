@@ -27,7 +27,7 @@ const Navigation = () => {
                             </DropdownToggle>
                             <DropdownMenu end>
                                 <DropdownItem >
-                                    <NavLink to='/wildlife'>
+                                    <NavLink href='/wildlife'>
                                         Wildlife
                                     </NavLink>
 
