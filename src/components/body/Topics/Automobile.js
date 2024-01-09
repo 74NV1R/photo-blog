@@ -1,8 +1,11 @@
 import React from 'react'
+import Feed from '../Feed/Feed'
 
 const Automobile = () => {
     return (
-        <div>Automobile</div>
+        <div>
+            <Feed />
+        </div>
     )
 }
 
