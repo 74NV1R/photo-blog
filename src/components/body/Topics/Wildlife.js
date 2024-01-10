@@ -4,7 +4,7 @@ import Feed from '../Feed/Feed'
 const Wildlife = () => {
     return (
         <div>
-            <Feed />
+            <Feed category={'wildlife'} />
         </div>
     )
 }

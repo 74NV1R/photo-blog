@@ -2,6 +2,17 @@ import React from 'react'
 import { Card, CardBody, CardTitle, CardSubtitle, CardText, Button } from 'reactstrap'
 
 const PostDetail = ({ post }) => {
+
+    let comment = null
+    const postCommnents = (post) => {
+        for (let i = 0; i < post.comments.length; i++) {
+            comment = comment + `<br> ${post.comments[i]} <br>`
+        }
+        console.log(comment)
+        return comment
+    }
+
+
     return (
         <div>
             <Card
@@ -26,6 +37,7 @@ const PostDetail = ({ post }) => {
                     <CardText>
                         {post.comments.length} comments <br />
                         {post.comments}
+                        {postCommnents}
                     </CardText>
                 </CardBody>
             </Card>

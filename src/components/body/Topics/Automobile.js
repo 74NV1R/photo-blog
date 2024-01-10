@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Feed from '../Feed/Feed'
+import imgArray from '../../../Images'
+
+
 
 const Automobile = () => {
+
     return (
         <div>
-            <Feed />
+            <Feed category={'car'} />
         </div>
     )
 }

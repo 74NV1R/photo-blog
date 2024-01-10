@@ -4,21 +4,25 @@ import ImagePost from './ImagePost'
 import PostDetail from './PostDetail'
 
 
-const Feed = () => {
+
+const Feed = ({ category }) => {
+
     const [images] = useState(imgArray)
+    const carImages = images.filter(image => image.topic === category);
+
     const [selectedPost, setSelectedPost] = useState(null)
 
-    //console.log(images)
+
+    console.log(category, carImages)
 
     const onSelect = (image) => {
         setSelectedPost(image)
-        console.log(image)
+        //console.log(image)
     }
 
-    const feed = images.map((image) => {
+    const feed = carImages.map((image) => {
         return (<ImagePost image={image} onSelect={onSelect} key={image.id} />)
     })
-
 
 
     const postDetail = selectedPost ? <PostDetail post={selectedPost} /> : null
