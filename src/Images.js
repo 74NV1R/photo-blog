@@ -12,7 +12,9 @@ const imgArray = [
         image: "/assets/images/car/car2.jpg",
         topic: "car",
         caption: "This happens to be a vehicle",
-        comments: ["This is indeed a car.", "This has four wheels"]
+        comments: [
+            { comment: 'it is indeed a car', commenter: 'John Doe' }
+        ]
     },
     {
         id: 2,

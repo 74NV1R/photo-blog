@@ -1,15 +1,25 @@
-import React from 'react'
-import { Card, CardBody, CardTitle, CardSubtitle, CardText, Button } from 'reactstrap'
+import React, { useState } from 'react'
+import { Card, CardBody, CardTitle, CardSubtitle, CardText, Button, Modal } from 'reactstrap'
+import Feedback from '../Feedback'
 
 const PostDetail = ({ post }) => {
 
     let comment = null
     const postCommnents = (post) => {
-        for (let i = 0; i < post.comments.length; i++) {
-            comment = comment + `<br> ${post.comments[i]} <br>`
+        for (let i in post.comments) {
+            comment = comment + `<br> ${i} <br>`
         }
-        console.log(comment)
         return comment
+    }
+
+    const [isModalOpen, setModalOpen] = useState(false)
+
+    const openModal = () => {
+        setModalOpen(true)
+    }
+
+    const closeModal = () => {
+        setModalOpen(false)
     }
 
 
@@ -36,11 +46,29 @@ const PostDetail = ({ post }) => {
                     </CardSubtitle>
                     <CardText>
                         {post.comments.length} comments <br />
-                        {post.comments}
-                        {postCommnents}
+                        {post.comments.map((commentObj, index) => (
+                            <span key={index}>
+                                {commentObj.comment} - {commentObj.commenter}
+                            </span>
+                        ))}
+                        <br />
+
+
+                        <Button className='btn btn-primary' onClick={openModal}>Add a comment</Button>
                     </CardText>
+
+
+
+
                 </CardBody>
             </Card>
+            <Modal
+                isOpen={isModalOpen}
+                onRequestClose={closeModal}
+                contentLabel="Feedback Form"
+            >
+                <Feedback onClose={closeModal} />
+            </Modal>
 
         </div>
     )

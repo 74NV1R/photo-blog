@@ -56,6 +56,9 @@ const Navigation = () => {
                     <NavItem>
                         <NavLink href="#" className="NavLink">Contact</NavLink>
                     </NavItem>
+                    <NavItem>
+                        <NavLink href="/login" className="NavLink">Login</NavLink>
+                    </NavItem>
                 </Nav>
             </Navbar>
         </div >

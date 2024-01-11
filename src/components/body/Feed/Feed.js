@@ -13,7 +13,7 @@ const Feed = ({ category }) => {
     const [selectedPost, setSelectedPost] = useState(null)
 
 
-    console.log(category, carImages)
+    //console.log(category, carImages)
 
     const onSelect = (image) => {
         setSelectedPost(image)
@@ -36,6 +36,7 @@ const Feed = ({ category }) => {
                 </div>
                 <div className='col-7'>
                     {postDetail}
+
                 </div>
 
             </div>
