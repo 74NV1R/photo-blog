@@ -20,6 +20,7 @@ const Feed = ({ category }) => {
         //console.log(image)
     }
 
+
     const feed = carImages.map((image) => {
         return (<ImagePost image={image} onSelect={onSelect} key={image.id} />)
     })

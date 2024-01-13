@@ -5,12 +5,7 @@ import Feedback from '../Feedback'
 const PostDetail = ({ post }) => {
 
     let comment = null
-    const postCommnents = (post) => {
-        for (let i in post.comments) {
-            comment = comment + `<br> ${i} <br>`
-        }
-        return comment
-    }
+
 
     const [isModalOpen, setModalOpen] = useState(false)
 
