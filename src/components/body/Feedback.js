@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import axios from 'axios'
 
 
-const Feedback = ({ onClose }) => {
+const Feedback = ({ onClose, imgId }) => {
     const [feedback, setFeedback] = useState({
         name: '',
         comment: '',
         time: new Date().toLocaleString(),
-        //post: post.id
+        imageId: imgId
     })
 
     const handleChange = (e) => {
@@ -30,6 +30,7 @@ const Feedback = ({ onClose }) => {
                 console.log(err.response)
             })
     }
+
 
 
 

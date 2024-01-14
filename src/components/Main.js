@@ -9,6 +9,7 @@ import Tech from './body/Topics/Tech'
 import Art from './body/Topics/Art'
 import Automobile from './body/Topics/Automobile'
 import Auth from './Auth/Auth'
+import PrintComments from './body/Feed/PrintComments'
 
 const Main = () => {
     return (
@@ -23,6 +24,8 @@ const Main = () => {
                     <Route path='/art' element={<Art />} />
                     <Route path='/tech' element={<Tech />} />
                     <Route path="/login" element={<Auth />} />
+                    <Route path="/comm" element={<PrintComments />} />
+
                     <Route path="/" element={<Navigate to="/" />} />
 
                 </Routes>

@@ -1,13 +1,29 @@
 import React, { useState } from 'react'
 import { Card, CardBody, CardTitle, CardSubtitle, CardText, Button, Modal } from 'reactstrap'
 import Feedback from '../Feedback'
+import axios from 'axios'
+import PrintComments from './PrintComments'
 
 const PostDetail = ({ post }) => {
 
-    let comment = null
-
-
     const [isModalOpen, setModalOpen] = useState(false)
+
+    const [comments, setComments] = useState(null)
+
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('https://photoblog-d4b1f-default-rtdb.firebaseio.com/feedback.json');
+            setComments(response.data)
+            console.log(comments)
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+
+    /*     const showComments = comments.map((comm) => {
+            return (<PrintComments comments={comments} />)
+        }) */
 
     const openModal = () => {
         setModalOpen(true)
@@ -17,6 +33,7 @@ const PostDetail = ({ post }) => {
         setModalOpen(false)
     }
 
+    const imgId = post.id
 
     return (
         <div>
@@ -48,7 +65,7 @@ const PostDetail = ({ post }) => {
                         ))}
                         <br />
 
-
+                        {/* {showComments} */}
                         <Button className='btn btn-primary' onClick={openModal}>Add a comment</Button>
                     </CardText>
 
@@ -62,7 +79,7 @@ const PostDetail = ({ post }) => {
                 onRequestClose={closeModal}
                 contentLabel="Feedback Form"
             >
-                <Feedback onClose={closeModal} />
+                <Feedback onClose={closeModal} imgId={imgId} />
             </Modal>
 
         </div>

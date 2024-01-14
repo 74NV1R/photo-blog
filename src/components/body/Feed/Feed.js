@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import imgArray from '../../../Images'
 import ImagePost from './ImagePost'
 import PostDetail from './PostDetail'
+
 
 
 
@@ -13,13 +14,11 @@ const Feed = ({ category }) => {
     const [selectedPost, setSelectedPost] = useState(null)
 
 
-    //console.log(category, carImages)
+
 
     const onSelect = (image) => {
         setSelectedPost(image)
-        //console.log(image)
     }
-
 
     const feed = carImages.map((image) => {
         return (<ImagePost image={image} onSelect={onSelect} key={image.id} />)
