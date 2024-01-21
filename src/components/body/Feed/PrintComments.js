@@ -1,27 +1,24 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React from 'react';
 
 const PrintComments = () => {
 
-    const [comments, setComments] = useState([])
 
-    useEffect(() => {
-        axios.get("https://photoblog-d4b1f-default-rtdb.firebaseio.com/feedback.json")
-            .then(response => {
-                setComments(response.data)
-                //console.log(typeof (response.data))
-                //console.log(response.data)
-                console.log(...comments)
-            })
-            .catch(error => console.log(error))
-    }, [])
+    const v = [
+        { id: 1, name: 'sam' },
+        { id: 2, name: 'ram' },
+        { id: 1, name: 'pam' }
+    ]
 
+    const fil = () => {
+        const filtered = v.filter(x => x.id === 1);
 
-    return (
-        <div>
+        return filtered.map(item => (
+            <li key={item.id}>{item.name}</li>
+        ))
+    }
 
-        </div>
-    )
+    return <ul>{fil()}</ul>
 }
+
 
 export default PrintComments

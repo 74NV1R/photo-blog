@@ -1,29 +1,44 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Card, CardBody, CardTitle, CardSubtitle, CardText, Button, Modal } from 'reactstrap'
 import Feedback from '../Feedback'
 import axios from 'axios'
-import PrintComments from './PrintComments'
 
 const PostDetail = ({ post }) => {
 
     const [isModalOpen, setModalOpen] = useState(false)
+    let v = []
+    let names = []
+    let feeds = []
 
     const [comments, setComments] = useState(null)
+    const [name, sentName] = useState(null)
 
-    const fetchData = async () => {
-        try {
-            const response = await axios.get('https://photoblog-d4b1f-default-rtdb.firebaseio.com/feedback.json');
-            setComments(response.data)
-            console.log(comments)
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
+    useEffect(() => {
+        axios.get("https://photoblog-d4b1f-default-rtdb.firebaseio.com/feedback.json")
+            .then(response => {
+                //console.log(response.data)
+                for (let key in response.data) {
+                    (post.id == response.data[key].imageId ? v.push(response.data[key]) : console.log())
+                }
+
+                for (let key in v) {
+                    feeds.push(v[key].comment)
+                    names.push(v[key].name)
+                    setComments((comments) => [...comments, v[key].comment])
+                    sentName((name) => [...name, v[key].name])
+                }
+
+                //console.log(name)
+
+                console.log(name, comments)
 
 
-    /*     const showComments = comments.map((comm) => {
-            return (<PrintComments comments={comments} />)
-        }) */
+
+            })
+            .catch(error => console.log(error))
+    }, [])
+
+
 
     const openModal = () => {
         setModalOpen(true)
@@ -57,7 +72,7 @@ const PostDetail = ({ post }) => {
                         {post.topic}
                     </CardSubtitle>
                     <CardText>
-                        {post.comments.length} comments <br />
+                        {names.length} comments <br />
                         {post.comments.map((commentObj, index) => (
                             <span key={index}>
                                 {commentObj.comment} - {commentObj.commenter}
@@ -65,7 +80,6 @@ const PostDetail = ({ post }) => {
                         ))}
                         <br />
 
-                        {/* {showComments} */}
                         <Button className='btn btn-primary' onClick={openModal}>Add a comment</Button>
                     </CardText>
 
@@ -79,7 +93,9 @@ const PostDetail = ({ post }) => {
                 onRequestClose={closeModal}
                 contentLabel="Feedback Form"
             >
+
                 <Feedback onClose={closeModal} imgId={imgId} />
+
             </Modal>
 
         </div>
