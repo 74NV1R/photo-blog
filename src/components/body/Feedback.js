@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { Button } from 'reactstrap'
 
 
 const Feedback = ({ onClose, imgId }) => {
@@ -24,6 +25,7 @@ const Feedback = ({ onClose, imgId }) => {
             .then(response => {
                 if (response.status === 200) {
                     console.log('posted')
+                    onClose()
                 }
             })
             .catch(err => {
@@ -37,29 +39,34 @@ const Feedback = ({ onClose, imgId }) => {
     return (
         <div>
             <h2>Share your feedback</h2>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Name:
-                    <input
-                        type="text"
-                        name="name"
-                        value={feedback.name}
-                        onChange={handleChange}
-                    />
-                </label>
+            <form style={{
+                margin: '20px',
+                padding: '10px'
+            }} onSubmit={handleSubmit}>
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder='name'
+                    value={feedback.name}
+                    onChange={handleChange}
+                />
+
                 <br />
-                <label>
-                    Comment:
-                    <textarea
-                        name="comment"
-                        value={feedback.comment}
-                        onChange={handleChange}
-                    />
-                </label>
                 <br />
-                <button type="submit" onClick={handleSubmit}>Submit</button>
+
+                <textarea
+                    name="comment"
+                    placeholder='type your comment here...'
+                    value={feedback.comment}
+                    onChange={handleChange}
+                />
+
+                <br />
+                <Button type="submit btn btn-primary" color='primary' onClick={handleSubmit}>Submit</Button>
+                <Button type='btn btn-danger' onClick={onClose}>Close</Button>
             </form>
-            <button onClick={onClose}>Close</button>
+
 
         </div>
     )

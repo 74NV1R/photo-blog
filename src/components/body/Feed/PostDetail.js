@@ -1,43 +1,48 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 import { Card, CardBody, CardTitle, CardSubtitle, CardText, Button, Modal } from 'reactstrap'
 import Feedback from '../Feedback'
 import axios from 'axios'
+
+
+const initialState = {
+    n: [],
+    c: [],
+}
+
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'addComment':
+            return { ...state, c: [...state.c, action.payload] }
+        case 'addName':
+            return { ...state, n: [...state.n, action.payload] }
+
+        default:
+            return state
+    }
+}
 
 const PostDetail = ({ post }) => {
 
     const [isModalOpen, setModalOpen] = useState(false)
     let v = []
     let names = []
-    let feeds = []
 
-    const [comments, setComments] = useState(null)
-    const [name, sentName] = useState(null)
+    const [state, dispatch] = useReducer(reducer, initialState)
 
     useEffect(() => {
         axios.get("https://photoblog-d4b1f-default-rtdb.firebaseio.com/feedback.json")
             .then(response => {
-                //console.log(response.data)
                 for (let key in response.data) {
                     (post.id == response.data[key].imageId ? v.push(response.data[key]) : console.log())
                 }
-
                 for (let key in v) {
-                    feeds.push(v[key].comment)
-                    names.push(v[key].name)
-                    setComments((comments) => [...comments, v[key].comment])
-                    sentName((name) => [...name, v[key].name])
+                    dispatch({ type: 'addComment', payload: v[key].comment });
+                    dispatch({ type: 'addName', payload: v[key].name });
                 }
-
-                //console.log(name)
-
-                console.log(name, comments)
-
-
 
             })
             .catch(error => console.log(error))
     }, [])
-
 
 
     const openModal = () => {
@@ -72,13 +77,12 @@ const PostDetail = ({ post }) => {
                         {post.topic}
                     </CardSubtitle>
                     <CardText>
-                        {names.length} comments <br />
-                        {post.comments.map((commentObj, index) => (
-                            <span key={index}>
-                                {commentObj.comment} - {commentObj.commenter}
-                            </span>
-                        ))}
-                        <br />
+                        Comments:
+                        <ul>
+                            {state.n.map((name, index) => (
+                                <li key={index}>{name} : {state.c[index]}</li>
+                            ))}
+                        </ul>
 
                         <Button className='btn btn-primary' onClick={openModal}>Add a comment</Button>
                     </CardText>
