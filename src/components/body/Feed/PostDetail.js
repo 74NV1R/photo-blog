@@ -1,8 +1,15 @@
-import React, { useState, useEffect, useReducer } from 'react'
-import { Card, CardBody, CardTitle, CardSubtitle, CardText, Button, Modal } from 'reactstrap'
-import Feedback from '../Feedback'
-import axios from 'axios'
-
+import React, { useState, useEffect, useReducer } from "react"
+import {
+    Card,
+    CardBody,
+    CardTitle,
+    CardSubtitle,
+    CardText,
+    Button,
+    Modal,
+} from "reactstrap"
+import Feedback from "../Feedback"
+import axios from "axios"
 
 const initialState = {
     n: [],
@@ -11,10 +18,12 @@ const initialState = {
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case 'addComment':
-            return { ...state, c: [...state.c, action.payload] }
-        case 'addName':
-            return { ...state, n: [...state.n, action.payload] }
+        case "updateFeedback":
+            return {
+                ...state,
+                n: action.payload.names,
+                c: action.payload.comments,
+            }
 
         default:
             return state
@@ -22,28 +31,31 @@ const reducer = (state, action) => {
 }
 
 const PostDetail = ({ post }) => {
-
     const [isModalOpen, setModalOpen] = useState(false)
     let v = []
     let names = []
-
+    console.log(post)
     const [state, dispatch] = useReducer(reducer, initialState)
 
     useEffect(() => {
-        axios.get("https://photoblog-d4b1f-default-rtdb.firebaseio.com/feedback.json")
-            .then(response => {
-                for (let key in response.data) {
-                    (post.id == response.data[key].imageId ? v.push(response.data[key]) : console.log())
-                }
-                for (let key in v) {
-                    dispatch({ type: 'addComment', payload: v[key].comment });
-                    dispatch({ type: 'addName', payload: v[key].name });
-                }
-
+        dispatch({ type: "addComment", payload: [] })
+        dispatch({ type: "addName", payload: [] })
+        axios
+            .get("https://photoblog-d4b1f-default-rtdb.firebaseio.com/feedback.json")
+            .then((response) => {
+                const filteredFeedback = Object.values(response.data).filter(
+                    (feedback) => post.id === feedback.imageId
+                )
+                dispatch({
+                    type: "updateFeedback",
+                    payload: {
+                        comments: filteredFeedback.map((item) => item.comment),
+                        names: filteredFeedback.map((item) => item.name),
+                    },
+                })
             })
-            .catch(error => console.log(error))
-    }, [])
-
+            .catch((error) => console.log(error));
+    }, [post])
 
     const openModal = () => {
         setModalOpen(true)
@@ -53,43 +65,40 @@ const PostDetail = ({ post }) => {
         setModalOpen(false)
     }
 
-    const imgId = post.id
+    const imgId = post.id;
 
     return (
         <div>
             <Card
                 style={{
-                    width: '30rem'
+                    width: "30rem",
                 }}
             >
-                <img
-                    alt="Sample"
-                    src={post.image}
-                />
+                {console.log("this is being triggered with id=", post.id)}
+                <img alt="Sample" src={post.image} />
                 <CardBody>
-                    <CardTitle tag="h5">
-                        {post.caption}
-                    </CardTitle>
-                    <CardSubtitle
-                        className="mb-2 text-muted"
-                        tag="h6"
-                    >
+                    <CardTitle tag="h5">{post.caption}</CardTitle>
+                    <CardSubtitle className="mb-2 text-muted" tag="h6">
                         {post.topic}
                     </CardSubtitle>
                     <CardText>
                         Comments:
                         <ul>
-                            {state.n.map((name, index) => (
-                                <li key={index}>{name} : {state.c[index]}</li>
-                            ))}
+                            {state.n.map((name, index) =>
+                                state.c[index] ? (
+                                    <li key={index}>
+                                        {name} : {state.c[index]}
+                                    </li>
+                                ) : null
+                            )}
+
                         </ul>
 
-                        <Button className='btn btn-primary' onClick={openModal}>Add a comment</Button>
+
+                        <Button className="btn btn-primary" onClick={openModal}>
+                            Add a comment
+                        </Button>
                     </CardText>
-
-
-
-
                 </CardBody>
             </Card>
             <Modal
@@ -97,13 +106,10 @@ const PostDetail = ({ post }) => {
                 onRequestClose={closeModal}
                 contentLabel="Feedback Form"
             >
-
                 <Feedback onClose={closeModal} imgId={imgId} />
-
             </Modal>
-
         </div>
     )
 }
 
-export default PostDetail
+export default PostDetail;

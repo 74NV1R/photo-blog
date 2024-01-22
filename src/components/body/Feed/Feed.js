@@ -19,13 +19,18 @@ const Feed = ({ category }) => {
     const onSelect = (image) => {
         setSelectedPost(image)
     }
+    /* 
+        const feed = carImages.map((image) => {
+            return (<ImagePost image={image} onSelect={onSelect} key={image.id} />)
+        }) */
 
-    const feed = carImages.map((image) => {
-        return (<ImagePost image={image} onSelect={onSelect} key={image.id} />)
-    })
 
+    const feed = carImages.map((image) => (
+        <ImagePost image={image} onSelect={onSelect} key={image.id} />
+    ))
 
-    const postDetail = selectedPost ? <PostDetail post={selectedPost} /> : null
+    /*     const postDetail = selectedPost ? <PostDetail post={selectedPost} /> : null
+     */
 
     return (
 
@@ -35,7 +40,8 @@ const Feed = ({ category }) => {
                     {feed}
                 </div>
                 <div className='col-7'>
-                    {postDetail}
+                    {/* {postDetail} */}
+                    {selectedPost && <PostDetail post={selectedPost} />}
 
                 </div>
 
