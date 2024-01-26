@@ -21,17 +21,24 @@ const Feedback = ({ onClose, imgId }) => {
 
         console.log(feedback)
 
-        axios.post("https://photoblog-d4b1f-default-rtdb.firebaseio.com/feedback.json", feedback)
-            .then(response => {
-                if (response.status === 200) {
-                    console.log('posted')
-                    onClose()
-                }
-            })
-            .catch(err => {
-                console.log(err.response)
-            })
+        if (feedback.comment != '' && feedback.name != '') {
+            axios.post("https://photoblog-d4b1f-default-rtdb.firebaseio.com/feedback.json", feedback)
+                .then(response => {
+                    if (response.status === 200) {
+                        console.log('posted')
+                        onClose()
+                    }
+                })
+                .catch(err => {
+                    console.log(err.response)
+                })
+        }
+        else {
+            alert("Feedback can be empty!")
+        }
     }
+
+
 
 
 
