@@ -24,7 +24,7 @@ const Main = () => {
                     <Route path='/automobile' element={<Automobile />} />
                     <Route path='/art' element={<Art />} />
                     <Route path='/tech' element={<Tech />} />
-                    <Route path="/login" element={<Login />} />
+                    <Route path="/login" element={<Auth />} />
                     <Route path="/comm" element={<PrintComments />} />
 
                     <Route path="/" element={<Navigate to="/" />} />

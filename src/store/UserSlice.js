@@ -1,4 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+
+export const loginUser = createAsyncThunk(
+    'user/loginUser',
+    async (userCredentials) => {
+
+    }
+)
 
 const userSlice = createSlice({
     name: 'user',

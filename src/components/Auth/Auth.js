@@ -1,11 +1,27 @@
 import React, { useState } from 'react'
 import { Formik } from 'formik'
 import { Button } from "reactstrap"
+import { useDispatch } from 'react-redux'
+import { loginUser } from '../../store/UserSlice'
 
 const Login = () => {
 
     const [count, setCount] = useState(0)
     const [mode, setMode] = useState('Login')
+
+    const [email, setEmail] = useState('')
+    const [pass, setPass] = useState('')
+
+    const dispatch = useDispatch()
+
+    const handleLoginEvent = (e) => {
+        e.preventDefault()
+        let userCredentials = {
+            email, pass
+        }
+        dispatch(loginUser(userCredentials))
+    }
+
 
 
     const switchMode = () => {
@@ -14,7 +30,7 @@ const Login = () => {
 
 
     return (
-        <div>
+        <div>{/* 
             <Formik
                 initialValues={{
                     email: "",
@@ -117,7 +133,27 @@ const Login = () => {
                 </div>)}
 
 
-            </Formik>
+            </Formik> */}
+
+
+            <form className='form-group custom-form' onSubmit={handleLoginEvent}>
+                <label>Email</label>
+                <input type='email' required className='form-cntrol' value={email} onChange={(e) => setEmail(e.target.value)} />
+
+                <br />
+                <label>Password</label>
+                <input type='pass' required className='form-cntrol' value={pass} onChange={(e) => setPass(e.target.value)} />
+
+                <br />
+
+                <button type='submit' className='btn btn-success btn-md'>Login</button>
+
+
+
+
+            </form>
+
+
         </div>
     )
 }
